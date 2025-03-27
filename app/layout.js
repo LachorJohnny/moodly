@@ -1,15 +1,7 @@
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Fugaz_One } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+const fugazOne = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata = {
   title: 'Moodly',
@@ -19,7 +11,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body
+        className={`w-full w-max-[1000px] min-h-screen mx-auto text-sm sm:text-base
+         flex flex-col antialiased`}
+      >
+        <header className="p-4 sm:p-8 flex items-center justify-between gap-4">
+          <h1 className={'text-base sm:text-lg textGradient ' + fugazOne.className}>Moodly</h1>
+        </header>
+        {children}
+        <footer className='p-4 sm:p-8'>footer</footer>
+      </body>
     </html>
   );
 }
