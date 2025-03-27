@@ -8,6 +8,18 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "printWidth": 100,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "useTabs": false
+  },
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
