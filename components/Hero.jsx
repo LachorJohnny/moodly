@@ -16,8 +16,8 @@ export default function Hero() {
         <span className="font-semibold">every day of every year.</span>
       </p>
       <div className="grid grid-cols-2 gap-4 w-fit mx-auto">
-        <Button text='Sign Up' />
-        <Button text='Login' dark />
+        <Button text="Sign Up" />
+        <Button text="Login" dark />
       </div>
     </div>
   );
