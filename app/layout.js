@@ -25,7 +25,6 @@ export default function RootLayout({ children }) {
             <Link href={'/'}>
               <h1 className={'text-base sm:text-lg textGradient ' + fugazOne.className}>Moodly</h1>
             </Link>
-            <div className="flex items-center justify-between">PLACEHOLDER CTA || STATS</div>
           </header>
           {children}
           <footer className="p-4 sm:p-8 grid place-items-center">
