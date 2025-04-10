@@ -22,12 +22,15 @@ const now = new Date();
 const dayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export default function Calendar(props) {
-  const { demo, data, handleSetMood } = props;
+  const { demo, completeData, handleSetMood } = props;
 
   const now = new Date();
   const currentMonth = now.getMonth();
   const [selectedYear, setSelectedYear] = useState(now.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(Object.keys(months)[currentMonth]);
+
+  const numericMonth = Object.keys(months).indexOf(selectedMonth);
+  const data = completeData?.[selectedYear]?.[numericMonth] || {};
 
   function handleIncrementMonth(val) {
     

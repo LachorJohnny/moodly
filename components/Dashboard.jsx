@@ -6,11 +6,13 @@ import Calendar from './Calendar';
 import { useAuth } from '@/context/AuthContext';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
+import Loading from './Loading';
+import Login from './Login';
 
 const fugazOne = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
 
 export default function Dashboard() {
-  const { currentUser, userDataObj, setUserDataObj } = useAuth();
+  const { currentUser, userDataObj, setUserDataObj, loading } = useAuth();
   const [data, setData] = useState({});
 
   function countValues() {}
@@ -75,6 +77,14 @@ export default function Dashboard() {
     setData(userDataObj);
   }, [currentUser, userDataObj]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!currentUser) {
+    return <Login />;
+  }
+
   return (
     <div className="flex flex-col flex-1 gap-8 sm:gap-12 md:gap-16">
       <div className="grid grid-cols-3 bg-indigo-50 text-indigo-500 p-4 gap-4 rounded-lg">
@@ -116,7 +126,7 @@ export default function Dashboard() {
           );
         })}
       </div>
-      <Calendar data={data} handleSetMood={handleSetMood} />
+      <Calendar completeData={data} handleSetMood={handleSetMood} />
     </div>
   );
 }

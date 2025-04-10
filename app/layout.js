@@ -2,6 +2,7 @@ import { Fugaz_One, Open_Sans } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
 import { AuthProvider } from '@/context/AuthContext';
+import Head from './head';
 
 const fugazOne = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
 const openSans = Open_Sans({ subsets: ['latin'] });
@@ -14,9 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head />
       <AuthProvider>
         <body
-          className={`w-full w-max-[1000px] min-h-screen mx-auto text-sm sm:text-base
+          className={`w-full max-w-[1000px] min-h-screen mx-auto text-sm sm:text-base
           flex flex-col text-slate-800 ${openSans.className}`}
         >
           <header className="p-4 sm:p-8 flex items-center justify-between gap-4">
