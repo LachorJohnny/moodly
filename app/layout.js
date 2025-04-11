@@ -11,6 +11,9 @@ const openSans = Open_Sans({ subsets: ['latin'] });
 export const metadata = {
   title: 'Moodly',
   description: 'Track your daily mood every day of the year!',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
