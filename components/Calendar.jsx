@@ -21,7 +21,7 @@ const months = {
   December: 'Dec',
 };
 const monthsArr = Object.keys(months);
-const dayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function Calendar(props) {
   const { demo, completeData, handleSetMood } = props;
@@ -47,7 +47,8 @@ export default function Calendar(props) {
   }
 
   const monthNow = new Date(selectedYear, monthsArr.indexOf(selectedMonth), 1);
-  const firstDayOfMonth = monthNow.getDay();
+  let firstDayOfMonth = monthNow.getDay();
+  firstDayOfMonth = (firstDayOfMonth + 6) % 7;
   const daysInMonth = new Date(selectedYear, monthsArr.indexOf(selectedMonth) + 1, 0).getDate();
 
   const daysToDisplay = firstDayOfMonth + daysInMonth;
@@ -88,7 +89,11 @@ export default function Calendar(props) {
                     : row === 0 && dayOfWeekIndex < firstDayOfMonth
                     ? false
                     : true;
-                let isToday = dayIndex === now.getDate();
+
+                let isToday =
+                  dayIndex === now.getDate() &&
+                  selectedMonth === monthsArr[now.getMonth()] &&
+                  selectedYear === now.getFullYear();
 
                 if (!dayDisplay) {
                   return <div key={dayOfWeekIndex} className="bg-white" />;
