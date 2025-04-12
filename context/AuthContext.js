@@ -3,8 +3,10 @@
 import { auth, db } from '@/firebase';
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
@@ -34,6 +36,20 @@ export function AuthProvider({ children }) {
     setCurrentUser(null);
     setUserDataObj(null);
     return signOut(auth);
+  }
+
+  async function loginWithGoogle() {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+    } catch (err) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        console.error('The popup was cancelled by the user.');
+      } else {
+        console.error('An error occurred during login:', err.message);
+      }
+    }
   }
 
   useEffect(() => {
@@ -71,11 +87,8 @@ export function AuthProvider({ children }) {
     signup,
     login,
     logout,
+    loginWithGoogle,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

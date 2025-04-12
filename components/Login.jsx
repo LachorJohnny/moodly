@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 const fugazOne = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
 
 export default function Login() {
-  const { signup, login } = useAuth();
+  const { signup, login, loginWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false);
@@ -68,6 +68,20 @@ export default function Login() {
           {!isRegister ? 'Sign up' : 'Sign in'}
         </button>
       </p>
+      <div className="flex items-center w-full max-w-[400px] mx-auto py-2 gap-3">
+        <div className="h-px bg-gray-300 flex-1" />
+        <span className="text-sm text-gray-400 whitespace-nowrap">or</span>
+        <div className="h-px bg-gray-300 flex-1" />
+      </div>
+      <div className="max-w-[400px] w-full mx-auto">
+        <Button
+          clickHandler={loginWithGoogle}
+          text={!isRegister ? 'Sign in with Google' : 'Sign up with Google'}
+          full
+          dark
+          google
+        />
+      </div>
     </div>
   );
 }
