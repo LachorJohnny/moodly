@@ -11,6 +11,7 @@ export default function Login() {
   const { signup, login, loginWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
 
@@ -22,6 +23,9 @@ export default function Login() {
     setAuthenticating(true);
     try {
       if (isRegister) {
+        if (password !== confirmPassword) {
+          return;
+        }
         await signup(email, password);
       } else {
         await login(email, password);
@@ -55,6 +59,18 @@ export default function Login() {
         type="password"
         placeholder="Password"
       />
+      {isRegister ? (
+        <input
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          className="w-full max-w-[400px] mx-auto px-4 py-2 sm:py-3 border border-solid border-indigo-400
+           rounded-full outline-none duration-200 hover:border-indigo-600 focus:border-indigo-600"
+          type="password"
+          placeholder="Confirm Password"
+        />
+      ) : (
+        ''
+      )}
       <div className="max-w-[400px] w-full mx-auto">
         <Button
           clickHandler={handleSubmit}
