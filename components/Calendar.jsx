@@ -96,7 +96,7 @@ export default function Calendar(props) {
                   selectedYear === now.getFullYear();
 
                 if (!dayDisplay) {
-                  return <div key={dayOfWeekIndex} className="bg-white" />;
+                  return <div key={dayOfWeekIndex} className="bg-transparent" />;
                 }
 
                 let color = demo
