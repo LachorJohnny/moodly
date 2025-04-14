@@ -1,9 +1,10 @@
 'use client';
 
 import { Fugaz_One } from 'next/font/google';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { useAuth } from '@/context/AuthContext';
+import { useSearchParams } from 'next/navigation';
 
 const fugazOne = Fugaz_One({ subsets: ['latin'], weight: ['400'] });
 
@@ -14,6 +15,17 @@ export default function Login() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
+
+  const searchParams = useSearchParams();
+  const mode = searchParams.get('mode');
+
+  useEffect(() => {
+    if (mode === 'register') {
+      setIsRegister(true);
+    } else if (mode === 'login') {
+      setIsRegister(false);
+    }
+  }, [mode]);
 
   async function handleSubmit() {
     if (!email || !password || password.length < 6) {
