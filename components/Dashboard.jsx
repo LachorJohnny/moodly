@@ -30,7 +30,9 @@ export default function Dashboard() {
       }
     }
 
-    return { num_days: totalNumOfDays, average_mood: sumMoods / totalNumOfDays };
+    const average = sumMoods / totalNumOfDays;
+
+    return { num_days: totalNumOfDays, average_mood: parseFloat(average.toFixed(1)) };
   }
 
   const statuses = {
