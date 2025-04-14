@@ -2,6 +2,7 @@
 
 import { Fugaz_One } from 'next/font/google';
 import React, { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import Calendar from './Calendar';
 import { useAuth } from '@/context/AuthContext';
 import { doc, setDoc } from 'firebase/firestore';
@@ -119,7 +120,16 @@ export default function Dashboard() {
         })}
       </div>
       <h4 className={'text-5xl sm:text-6xl md:text-7xl text-center ' + fugazOne.className}>
-        How do you <span className="textGradient">feel</span> today?
+        How do you{' '}
+        <motion.span
+          className="textGradient inline-block pb-3 pl-0.5"
+          initial={{ scale: 1 }}
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+        >
+          feel
+        </motion.span>{' '}
+        today?
       </h4>
       <div className="flex items-stretch flex-wrap gap-4">
         {Object.keys(moods).map((mood, moodIndex) => {

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { gradients, baseRating } from '@/utils';
 import { Fugaz_One } from 'next/font/google';
 
@@ -77,51 +78,76 @@ export default function Calendar(props) {
           <i className="fa-solid fa-circle-chevron-right" />
         </button>
       </div>
-      <div className="flex flex-col overflow-hidden gap-1 py-4 sm:py-6 md:py-10">
-        {[...Array(numRows).keys()].map((row, rowIndex) => {
-          return (
-            <div key={rowIndex} className="grid grid-cols-7 gap-1">
-              {dayList.map((dayOfWeek, dayOfWeekIndex) => {
-                let dayIndex = rowIndex * 7 + dayOfWeekIndex - (firstDayOfMonth - 1);
-                let dayDisplay =
-                  dayIndex > daysInMonth
-                    ? false
-                    : row === 0 && dayOfWeekIndex < firstDayOfMonth
-                    ? false
-                    : true;
 
-                let isToday =
-                  dayIndex === now.getDate() &&
-                  selectedMonth === monthsArr[now.getMonth()] &&
-                  selectedYear === now.getFullYear();
+      <div className="flex flex-col overflow-visible gap-1 py-4 sm:py-6 md:py-10">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${selectedMonth}-${selectedYear}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="flex flex-col gap-1"
+          >
+            {[...Array(numRows).keys()].map((row, rowIndex) => (
+              <div key={rowIndex} className="grid grid-cols-7 gap-1">
+                {dayList.map((_, dayOfWeekIndex) => {
+                  const dayIndex = rowIndex * 7 + dayOfWeekIndex - (firstDayOfMonth - 1);
 
-                if (!dayDisplay) {
-                  return <div key={dayOfWeekIndex} className="bg-transparent" />;
-                }
+                  const dayDisplay =
+                    dayIndex > daysInMonth
+                      ? false
+                      : rowIndex === 0 && dayOfWeekIndex < firstDayOfMonth
+                      ? false
+                      : true;
 
-                let color = demo
-                  ? gradients.indigo[baseRating[dayIndex]]
-                  : dayIndex in data
-                  ? gradients.indigo[data[dayIndex]]
-                  : 'white';
+                  const isToday =
+                    dayIndex === now.getDate() &&
+                    selectedMonth === monthsArr[now.getMonth()] &&
+                    selectedYear === now.getFullYear();
 
-                return (
-                  <div
-                    key={dayOfWeekIndex}
-                    style={{ background: color }}
-                    className={
-                      'text-xs sm:text-sm border border-solid p-2 flex items-center justify-between gap-2 rounded-lg ' +
-                      (isToday ? ' border-indigo-400' : ' border-indigo-100') +
-                      (color === 'white' ? ' text-indigo-400' : ' text-white')
-                    }
-                  >
-                    <p>{dayIndex}</p>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  if (!dayDisplay) {
+                    return <div key={dayOfWeekIndex} className="bg-transparent" />;
+                  }
+
+                  const color = demo
+                    ? gradients.indigo[baseRating[dayIndex]]
+                    : dayIndex in data
+                    ? gradients.indigo[data[dayIndex]]
+                    : 'white';
+
+                  return (
+                    <motion.div
+                      key={dayOfWeekIndex}
+                      layout
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{ background: color }}
+                      className={
+                        'relative text-xs sm:text-sm border border-solid p-2 flex items-center justify-between gap-2 rounded-lg overflow-hidden ' +
+                        (isToday ? ' border-indigo-400' : ' border-indigo-100') +
+                        (color === 'white' ? ' text-indigo-400' : ' text-white')
+                      }
+                    >
+                      {isToday && (
+                        <motion.div
+                          className="absolute inset-0 rounded-lg border-2 border-indigo-400 z-0"
+                          animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.3, 0.6] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }}
+                        />
+                      )}
+                      <p className="z-10">{dayIndex}</p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

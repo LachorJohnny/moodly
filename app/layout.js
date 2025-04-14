@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
           </header>
           {children}
           <footer className="p-4 sm:p-8 grid place-items-center">
-            <p className={'text-indigo-500 ' + fugazOne.className}>Created with 💜</p>
+            <p className={'text-indigo-500 ' + fugazOne.className}>Created with 🩵</p>
           </footer>
         </body>
       </AuthProvider>
