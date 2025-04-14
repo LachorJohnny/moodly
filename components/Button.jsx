@@ -17,7 +17,7 @@ export default function Button(props) {
     >
       <p
         className={
-          'flex items-center justify-center px-6 sm:px-10 py-2 sm:py-3 whitespace-nowrap ' +
+          'flex items-center justify-center px-6 sm:px-10 py-2 sm:py-3 whitespace-nowrap text-base ' +
           fugazOne.className
         }
       >
